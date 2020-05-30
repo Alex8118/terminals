@@ -1,0 +1,3 @@
+ALTER TABLE status MODIFY id int NOT NULL;
+ALTER TABLE status DROP COLUMN id;
+ALTER TABLE status MODIFY terminal_id int NOT NULL PRIMARY KEY;
