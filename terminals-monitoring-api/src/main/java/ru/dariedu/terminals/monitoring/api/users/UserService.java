@@ -22,7 +22,7 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public Optional<User> getTokenById(int id) {
+    public Optional<User> getTokenById(int id) { //TO DO name is wrong. getUserById is the same, DataMockedConf doesn't work with user checking
         User user = currentUserService.getUserSecurity().get();
         if (id == user.getId() || user.isAdmin()) {
             return userRepository.findById(id);

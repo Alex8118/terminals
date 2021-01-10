@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,16 +38,18 @@ public class UserController {
 
     private final CurrentUserService currentUserService;
 
-    @Value("${jwt.token.expiration.minutes}")
-    private long tokenExpirationTime;
+    private final long tokenExpirationTime;
 
-    @Value("${jwt.token.secret}")
-    private String jwtSecret;
+    private final String jwtSecret;
 
-    public UserController(UserService userService, UserMapper userMapper, CurrentUserService currentUserService) {
+    public UserController(UserService userService, UserMapper userMapper, CurrentUserService currentUserService,
+                          @Value("${jwt.token.expiration.minutes}") long tokenExpirationTime,
+                          @Value("${jwt.token.secret}") String jwtSecret) {
         this.userService = userService;
         this.userMapper = userMapper;
         this.currentUserService = currentUserService;
+        this.jwtSecret = jwtSecret;
+        this.tokenExpirationTime = tokenExpirationTime;
     }
 
     @Secured("ROLE_ADMIN")
